@@ -3,9 +3,9 @@ package com.ninjawebzen.movieapp_p2.fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,10 +16,10 @@ import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.ninjawebzen.movieapp_p2.adapters.ImageAdapter;
 import com.ninjawebzen.movieapp_p2.MovieItem;
 import com.ninjawebzen.movieapp_p2.R;
 import com.ninjawebzen.movieapp_p2.activities.DetailActivity;
+import com.ninjawebzen.movieapp_p2.adapters.ImageAdapter;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -32,7 +32,7 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 
 /**
  * A placeholder fragment containing a simple view.
@@ -48,12 +48,12 @@ public class MainActivityFragment extends Fragment {
     private TextView mLoading;
     private ImageAdapter mImages;
 
-    private class FetchPageTask extends AsyncTask<Integer, Void, Collection<MovieItem>> {
+    private class FetchPageTask extends AsyncTask<Integer, Void, List<MovieItem>> {
 
         public  final String LOG_TAG = FetchPageTask.class.getSimpleName();
 
         @Override
-        protected Collection<MovieItem> doInBackground(Integer... params) {
+        protected List<MovieItem> doInBackground(Integer... params) {
             if (params.length == 0) {
                 return null;
             }
@@ -136,12 +136,12 @@ public class MainActivityFragment extends Fragment {
             }
         }
 
-        private Collection<MovieItem> fetchMoviesFromJson(String jsonStr) throws JSONException {
+        private List<MovieItem> fetchMoviesFromJson(String jsonStr) throws JSONException {
             final String KEY_MOVIES = "results";
 
             JSONObject json  = new JSONObject(jsonStr);
             JSONArray movies = json.getJSONArray(KEY_MOVIES);
-            ArrayList result = new ArrayList<>();
+            ArrayList<MovieItem> result = new ArrayList<>();
 
             for (int i = 0; i < movies.length(); i++) {
                 result.add(MovieItem.fromJson(movies.getJSONObject(i)));
@@ -151,7 +151,7 @@ public class MainActivityFragment extends Fragment {
         }
 
         @Override
-        protected void onPostExecute(Collection<MovieItem> xs) {
+        protected void onPostExecute(List<MovieItem> xs) {
             if (xs == null) {
                 Toast.makeText(
                         getActivity(),
@@ -240,7 +240,7 @@ public class MainActivityFragment extends Fragment {
                 }
 
                 Intent intent = new Intent(getActivity(), DetailActivity.class);
-                intent.putExtra(MovieItem.EXTRA_MOVIE, movie.toBundle());
+                intent.putExtra(MovieItem.EXTRA_MOVIE, movie);
                 getActivity().startActivity(intent);
             }
         });

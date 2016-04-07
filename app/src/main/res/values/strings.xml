@@ -10,6 +10,9 @@
 
     <string name="msg_loading">loading...</string>
 
+    <string name="trailer_title">Trailers</string>
+    <string name="review_title">Reviews</string>
+
 
     <!-- prefs -->
     <string name="pref_sorting_label_popular">Show most popular movies</string>
@@ -20,7 +23,7 @@
     <string name="msg_server_error">Internet connection problem</string>
 
     <!-- api -->
-    <string name="api_key">your_api_key</string>
+    <string name="api_key">e151fd6a5d7b1bde6ffffe94ce507278</string>
     <string name="api_poster_default_size">w154</string>
 
     <!-- labels -->
